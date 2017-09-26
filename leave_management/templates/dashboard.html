@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Dashboard: {{ f_id }}</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+
+    <div class="form">
+        <div class="title-row">
+            <h1>Welcome {{ name }}!</h1>
+        </div>
+        <div class="row" style="font-size:20px">
+            <span>Faculty ID:</span>
+            <span style="width: 350px;">{{ f_id }}</span>
+        </div>
+        <div class="row" style="font-size:20px">
+            <span>Name:</span>
+            <span style="width: 350px;">{{ name }}</span>
+        </div>
+        <div class="row" style="font-size:20px">
+            <span>Designation:</span>
+            <span style="width: 350px;">{{ desig }}</span>
+        </div>
+        <div class="row" style="font-size:20px">
+            <span>Email ID:</span>
+            <span style="width: 350px;">{{ email }}</span>
+        </div>
+        <div class="row" style="font-size:20px">
+            <span>Department:</span>
+            <span style="width: 350px;">{{ dept }}</span>
+        </div>
+        <div class="row" style="font-size:20px">
+            <span>Faculty:</span>
+            <span style="width: 350px;">{{ fac }}</span>
+        </div>
+    </div>
+    <center>
+        <a style="margin-right: 20px" href="{% url 'days_left' %}"> <button>Leave days remaining</button> </a>
+        <a style="margin-right: 20px" href="{% url 'app_leave' %}"> <button>Apply for Leave</button> </a>
+        <a style="margin-right: 20px" href="{% url 'past_app' %}"> <button>Past Leave Applications</button> </a>
+        <a style="margin-right: 20px" href="{% url 'leave_types' %}"> <button>Leave Types</button> </a>
+    </center>
+
+</body>
+
+</html>

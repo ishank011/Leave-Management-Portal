@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+    <br><br>
+
+    <div class="form" style="max-width: 900px;">
+        <div class="title-row">
+            <h1>Reviewed Applications</h1>
+        </div>
+        <center>
+        <table>
+          <tr>
+            <th>Leave ID</th>
+            <th>Start Date</th> 
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            <th>Leave Type</th>
+            <th>Admin ID</th>
+            <th>Faculty ID</th>
+          </tr>
+          {% for a in old %}
+              <tr>
+                {% for b in a %}
+                    {% if forloop.last %}
+                        <td><a style="text-decoration: none" href="/faculty/{{ b }}">{{ b }}</a></td>
+                    {% else %}
+                        <td>{{ b }}</td>
+                    {% endif %}
+                {% endfor %}
+              </tr>
+          {% endfor %}
+        </table>
+        </center>
+        <br><br><br><br>
+        <div class="title-row">
+            <h1>Unreviewed Applications</h1>
+        </div>
+        <center>
+        <table>
+          <tr>
+            <th>Leave ID</th>
+            <th>Start Date</th> 
+            <th>End Date</th>
+            <th>Leave Type</th>
+            <th>Faculty ID</th>
+          </tr>
+          {% for a in new %}
+              <tr>
+                {% for b in a %}
+                    {% if forloop.first %}
+                        <td><a style="text-decoration: none" href="/review/{{ b }}">{{ b }}</a></td>
+                    {% elif forloop.last %}
+                        <td><a style="text-decoration: none" href="/faculty/{{ b }}">{{ b }}</a></td>
+                    {% else %}
+                        <td>{{ b }}</td>
+                    {% endif %}
+                {% endfor %}
+              </tr>
+          {% endfor %}
+        </table>
+        </center>
+    </div>
+
+    <center>
+        <a style="margin-right: 20px" href="{% url 'leave_types' %}"> <button>Leave Types</button> </a>
+        <a style="margin-right: 20px" href="{% url 'update_max_days' %}"> <button>Update Maximum Leave days</button> </a>
+        <a style="margin-right: 20px" href="{% url 'add_faculty' %}"> <button>Add Faculty Member</button> </a>
+    </center>
+
+</body>
+
+</html>

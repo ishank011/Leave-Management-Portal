@@ -1,0 +1,120 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Add Faculty Member</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+    
+    <div>
+
+        <form class="form" method="post" action="{% url 'add_faculty' %}">
+            {% csrf_token %}
+            <div class="title-row">
+                <h1>Add Faculty Member</h1>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Faculty ID</span>
+                    <input type="text" name="f_id" required>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>First Name</span>
+                    <input type="text" name="f_name" required>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Middle Name</span>
+                    <input type="text" name="m_name">
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Last Name</span>
+                    <input type="text" name="l_name">
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Department ID</span>
+                    <input type="text" name="dept" required>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Designation</span>
+                     <select name="desig">
+                        <option value="Professor">Professor</option>
+                        <option value="Associate Professor">Associate Professor</option>
+                        <option value="Assistant Professor">Assistant Professor</option>
+                        <option value="Visiting Professor">Visiting Professor</option>
+                     </select>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Gender</span>
+                     <select name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                     </select>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Email ID</span>
+                    <input type="email" name="email" required>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="pass1" required>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Re-enter Password</span>
+                    <input type="password" name="pass2" required>
+                </label>
+            </div>
+
+            <div>
+                <button style="margin-right: 20px" type="submit">Submit</button>
+                <a class="alert" style="text-decoration: none" href="{% url 'admin_dashboard' %}">Back</a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

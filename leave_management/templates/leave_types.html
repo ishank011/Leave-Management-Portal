@@ -1,0 +1,72 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>Leave Types</title>
+</head>
+
+<body>
+
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+
+    <div class="form">
+        <div class="title-row">
+            <h1>Lapsable Leave Types</h1>
+        </div>
+        <center>
+        <table>
+          <tr>
+            <th>Leave Type</th>
+            <th>Leave Description</th>
+            <th>Max Days</th>
+            <th>Gender Specific</th>
+          </tr>
+          {% for a in laps %}
+              <tr>
+                {% for b in a %}
+                    <td>{{ b }}</td>
+                {% endfor %}
+              </tr>
+          {% endfor %}
+        </table>
+        </center>
+        <br><br><br>
+
+        <div class="title-row">
+            <h1>Non-lapsable Leave Types</h1>
+        </div>
+        <center>
+        <table>
+          <tr>
+            <th>Leave Type</th>
+            <th>Leave Description</th>
+            <th>Max Days</th>
+            <th>Gender Specific</th>
+          </tr>
+          {% for a in nlaps %}
+              <tr>
+                {% for b in a %}
+                    <td>{{ b }}</td>
+                {% endfor %}
+              </tr>
+          {% endfor %}
+        </table>
+        </center>
+    </div>
+    <center>
+        <a style="margin-right: 20px" href="{% url 'dashboard' %}"> <button>Back</button> </a>
+    </center>
+
+</body>
+
+</html>

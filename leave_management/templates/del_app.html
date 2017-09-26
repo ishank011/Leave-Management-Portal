@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Delete Leave Request</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+    
+    <div>
+
+        <form class="form" method="post" action="/del_app/{{ l_id }}">
+            {% csrf_token %}
+            <div class="title-row">
+                <h1>Are you sure you want to delete the following leave request</h1>
+            </div>
+            <center>
+            <table>
+              <tr>
+                <th>Leave ID</th>
+                <th>Start Date</th> 
+                <th>End Date</th>
+                <th>Leave Type</th>
+              </tr>
+              <tr>
+                {% for a in data %}
+                    <td>{{ a }}</td>
+                {% endfor %}
+              </tr>
+            </table>
+            </center>
+
+            <div>
+                <button style="margin-right: 20px" type="submit">Yes</button>
+                <a class="alert" style="text-decoration: none" href="{% url 'past_app' %}">No</a>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

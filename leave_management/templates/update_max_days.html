@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Update Remaining Leave Days</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+    
+    <div>
+
+        <form class="form" method="post" action="{% url 'update_max_days' %}">
+            {% csrf_token %}
+            <div class="title-row">
+                <h1>Are you sure you want to update maximum days for all faculty members?</h1>
+            </div>
+
+            <div>
+                <button style="margin-right: 20px" type="submit">Yes</button>
+                <a class="alert" style="text-decoration: none" href="{% url 'admin_dashboard' %}">No</a>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

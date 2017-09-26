@@ -1,0 +1,78 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Faculty: {{ f_id }}</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+
+    <div class="form">
+        <div class="title-row">
+            <h1>Faculty: {{ f_id }}</h1>
+        </div>
+        <center>
+        <table>
+          <tr>
+            <td>Faculty ID:</td>
+            <td>{{ f_id }}</td>
+          </tr>
+          <tr>
+            <td>Name:</td>
+            <td>{{ name }}</td>
+          </tr>
+          <tr>
+            <td>Designation:</td>
+            <td>{{ desig }}</td>
+          </tr>
+          <tr>
+            <td>Email ID:</td>
+            <td>{{ email }}</td>
+          </tr>
+          <tr>
+            <td>Department:</td>
+            <td>{{ dept }}</td>
+          </tr>
+          <tr>
+            <td>Faculty:</td>
+            <td>{{ fac }}</td>
+          </tr>
+        </table>
+        </center>
+        <br><br>
+        <center>
+        <table>
+          <tr>
+            <th>Leave Type</th>
+            <th>No. of days left</th> 
+          </tr>
+          {% for a in days %}
+              <tr>
+                {% for b in a %}
+                    <td>{{ b }}</td>
+                {% endfor %}
+              </tr>
+          {% endfor %}
+        </table>
+        </center>
+    </div>
+    <center>
+        <a style="margin-right: 20px" href="{% url 'admin_dashboard' %}"> <button>Back</button> </a>
+    </center>
+
+</body>
+
+</html>

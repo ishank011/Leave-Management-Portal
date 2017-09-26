@@ -1,0 +1,81 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Past Leave Applications</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+    <br><br>
+
+    <div class="form" style="max-width: 900px;">
+        <div class="title-row">
+            <h1>Reviewed Applications</h1>
+        </div>
+        <center>
+        <table>
+          <tr>
+            <th>Leave ID</th>
+            <th>Start Date</th> 
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            <th>Leave Type</th>
+          </tr>
+          {% for a in new %}
+              <tr>
+                {% for b in a %}
+                    <td>{{ b }}</td>
+                {% endfor %}
+              </tr>
+          {% endfor %}
+        </table>
+        </center>
+        <br><br><br><br>
+        <div class="title-row">
+            <h1>Unreviewed Applications</h1>
+        </div>
+        <center>
+        <table>
+          <tr>
+            <th>Leave ID</th>
+            <th>Start Date</th> 
+            <th>End Date</th>
+            <th>Leave Type</th>
+            <th></th>
+          </tr>
+          {% for a in old %}
+              <tr>
+                {% for b in a %}
+                    {% if forloop.last %}
+                        <td><a style="text-decoration: none" href="/del_app/{{ b }}">Delete</a></td>
+                    {% else %}
+                        <td>{{ b }}</td>
+                    {% endif %}
+                {% endfor %}
+              </tr>
+          {% endfor %}
+        </table>
+        </center>
+    </div>
+
+    <center>
+        <a style="margin-right: 20px" href="{% url 'dashboard' %}"> <button>Back</button> </a>
+    </center>
+
+</body>
+
+</html>

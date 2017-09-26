@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Review Leave Request</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}
+    
+    <div>
+
+        <form class="form" method="post" action="/review/{{ l_id }}">
+            {% csrf_token %}
+            <div class="title-row">
+                <h1>Review leave request</h1>
+            </div>
+            <center>
+            <table>
+              <tr>
+                <th>Leave ID</th>
+                <th>Start Date</th> 
+                <th>End Date</th>
+                <th>Leave Type</th>
+                <th>Faculty ID</th>
+                <th>No. of days left</th>
+              </tr>
+              <tr>
+                {% for a in data %}
+                    {% if forloop.last %}
+                        <td><a style="text-decoration: none" href="/faculty/{{ a }}">{{ a }}</a></td>
+                    {% else %}
+                        <td>{{ a }}</td>
+                    {% endif %}
+                {% endfor %}
+                <td>{{ days }}</td>
+              </tr>
+            </table>
+            </center>
+            <br><br>
+
+            <div class="row">
+                <label>
+                    <span>Status</span>
+                     <select name="status">
+                        <option>Approve</option>
+                        <option>Reject</option>
+                     </select>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Remarks</span>
+                    <input type="text" name="remarks">
+                </label>
+            </div>
+
+            <div>
+                <button style="margin-right: 20px" type="submit">Confirm</button>
+                <a class="alert" style="text-decoration: none" href="{% url 'admin_dashboard' %}">Back</a>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

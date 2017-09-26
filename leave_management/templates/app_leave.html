@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Application for Leave</title>
+</head>
+
+<body>
+
+    <div><a style="float:right; margin-right: 40px" href="{% url 'logout' %}"> <button>Logout</button> </a></div>
+    {% if messages %}
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %}    
+    <div>
+
+        <form class="form" method="post" action="{% url 'app_leave' %}">
+            {% csrf_token %}
+            <div class="title-row">
+                <h1>Application for Leave Request</h1>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Start Date</span>
+                    <input type="date" name="start_date" required>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>End Date</span>
+                    <input type="date" name="end_date" required>
+                </label>
+            </div>
+
+            <div class="row">
+                <label>
+                    <span>Leave Type</span>
+                     <select name="l_type">
+                     {% for d in types %}
+                        <option>{{ d }}</option>
+                     {% endfor %}
+                     </select>
+                </label>
+            </div>
+
+            <div>
+                <button style="margin-right: 20px" type="submit">Submit</button>
+                <a class="alert" style="text-decoration: none" href="{% url 'dashboard' %}">Back</a>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+
+</html>
